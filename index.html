@@ -5,26 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeopardy Game</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-900 text-white">
 
     <div class="container mx-auto p-4">
         <h1 class="text-4xl font-bold text-center mb-6">Jeopardy Game</h1>
         
+        <!-- This is where the board will appear -->
         <div id="board" class="grid grid-cols-5 gap-4 mb-4">
-            <!-- Dynamically filled by JS -->
+            <!-- Categories and points will be inserted here dynamically -->
         </div>
 
+        <!-- Modal to show the question and answer -->
         <div id="question-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
             <div class="bg-white text-black p-6 rounded-lg">
                 <h2 id="question-title" class="text-2xl font-bold"></h2>
                 <p id="question-text" class="mt-4"></p>
-                <button onclick="showAnswer(true)" class="mt-4 px-4 py-2 bg-green-500 text-white rounded">Show Answer</button>
+                <button onclick="showAnswer()" class="mt-4 px-4 py-2 bg-green-500 text-white rounded">Show Answer</button>
                 <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">Close</button>
             </div>
         </div>
 
+        <!-- Modal to show the answer -->
         <div id="answer-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
             <div class="bg-white text-black p-6 rounded-lg">
                 <p id="answer-text" class="text-xl font-bold"></p>

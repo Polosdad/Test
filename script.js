@@ -36,9 +36,72 @@ const categories = {
     }
 };
 
-const scores = { team1: 0, team2: 0 };
+let teamNames = [];
+let numTeams = 2;
+let scores = {};
 let currentQuestion = null;
 let currentPoints = 0;
+
+function updateTeamNames() {
+    const numTeamsSelect = document.getElementById("num-teams");
+    numTeams = parseInt(numTeamsSelect.value);
+    const teamNamesDiv = document.getElementById("team-names");
+    teamNamesDiv.innerHTML = '';
+
+    for (let i = 1; i <= numTeams; i++) {
+        const label = document.createElement("label");
+        label.innerText = `Team ${i} Name: `;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = `team${i}-name`;
+        input.placeholder = `Team ${i} Name`;
+        teamNamesDiv.appendChild(label);
+        teamNamesDiv.appendChild(input);
+        teamNamesDiv.appendChild(document.createElement("br"));
+    }
+}
+
+function startGame() {
+    // Get team names from the input fields
+    for (let i = 1; i <= numTeams; i++) {
+        const teamName = document.getElementById(`team${i}-name`).value.trim();
+        if (teamName) {
+            teamNames.push(teamName);
+            scores[teamName] = 0;
+        } else {
+            alert("Please enter a name for all teams.");
+            return;
+        }
+    }
+
+    // Set up the scoreboard dynamically based on team names
+    const scoresDiv = document.getElementById("scores");
+    scoresDiv.innerHTML = '';
+    teamNames.forEach((teamName) => {
+        const div = document.createElement("div");
+        div.className = "team";
+        div.id = teamName;
+        div.innerText = `${teamName}: $0`;
+        scoresDiv.appendChild(div);
+    });
+
+    // Hide the setup section and show the game section
+    document.getElementById("team-setup").style.display = "none";
+    document.getElementById("game-section").style.display = "block";
+
+    // Populate the team select dropdown for answering
+    const teamSelect = document.getElementById("team-select");
+    teamSelect.innerHTML = '';
+    teamNames.forEach((teamName) => {
+        const option = document.createElement("option");
+        option.value = teamName;
+        option.innerText = teamName;
+        teamSelect.appendChild(option);
+    });
+
+    // Generate the board
+    generateBoard();
+}
 
 function generateBoard() {
     const board = document.getElementById("jeopardy-board");
@@ -65,7 +128,6 @@ function generateBoard() {
 function showQuestion(category, points) {
     currentQuestion = category;
     currentPoints = points;
-    // Display the actual question from the categories object
     document.getElementById("question-text").innerText = `Question: ${categories[category][points].question}`;
     document.getElementById("popup").style.display = "block";
 }
@@ -79,8 +141,6 @@ function showAnswer() {
 function updateScore(correct) {
     const team = document.getElementById("team-select").value;
     scores[team] += correct ? currentPoints : -currentPoints;
-    document.getElementById(team).innerText = `${team.replace("team", "Team ")}: $${scores[team]}`;
+    document.getElementById(team).innerText = `${team}: $${scores[team]}`;
     document.getElementById("answer-popup").style.display = "none";
 }
-
-generateBoard();

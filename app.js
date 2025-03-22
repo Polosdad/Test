@@ -1,100 +1,55 @@
-// Jeopardy questions with five categories
-const questions = {
-    "Science": {
-        100: ["What is the chemical symbol for water?", "H2O"],
-        200: ["What planet is known as the Red Planet?", "Mars"],
-        300: ["What is the powerhouse of the cell?", "Mitochondria"],
-        400: ["What gas do plants absorb?", "Carbon Dioxide"],
-        500: ["What is the speed of light?", "299,792,458 m/s"]
-    },
-    "History": {
-        100: ["Who was the first U.S. president?", "George Washington"],
-        200: ["In what year did WWII end?", "1945"],
-        300: ["What was the Pilgrims' ship called?", "Mayflower"],
-        400: ["Who wrote the Declaration of Independence?", "Thomas Jefferson"],
-        500: ["When did the Roman Empire fall?", "476 AD"]
-    },
-    "Geography": {
-        100: ["What is the capital of France?", "Paris"],
-        200: ["Which continent has the Sahara Desert?", "Africa"],
-        300: ["Largest ocean?", "Pacific Ocean"],
-        400: ["U.S. state with longest coastline?", "Alaska"],
-        500: ["Smallest country?", "Vatican City"]
-    },
-    "Math": {
-        100: ["7 + 8?", "15"],
-        200: ["Square root of 64?", "8"],
-        300: ["12 x 12?", "144"],
-        400: ["Pi to 3 decimals?", "3.142"],
-        500: ["Derivative of x²?", "2x"]
-    },
-    "Movies": {
-        100: ["Who directed 'Titanic'?", "James Cameron"],
-        200: ["Highest-grossing movie?", "Avatar"],
-        300: ["Who played Jack in 'Titanic'?", "Leonardo DiCaprio"],
-        400: ["What movie says 'I see dead people'?", "The Sixth Sense"],
-        500: ["Most Oscar wins for an actor?", "Katharine Hepburn"]
-    }
+const categories = {
+    "Science": { 100: "H2O", 200: "Mars", 300: "Mitochondria", 400: "Gravity", 500: "Einstein" },
+    "History": { 100: "George Washington", 200: "1945", 300: "Mayflower", 400: "Boston Tea Party", 500: "Napoleon" },
+    "Geography": { 100: "Mount Everest", 200: "Nile River", 300: "Amazon Rainforest", 400: "Sahara Desert", 500: "Pacific Ocean" },
+    "Math": { 100: "Pi", 200: "Pythagorean theorem", 300: "Infinity", 400: "Prime numbers", 500: "Euler" },
+    "Literature": { 100: "Shakespeare", 200: "Homer", 300: "Gatsby", 400: "Moby Dick", 500: "Odyssey" }
 };
 
-// Track team scores
-const teamScores = { 1: 0, 2: 0, 3: 0 };
-let selectedCategory, selectedPoints;
+const scores = { team1: 0, team2: 0 };
+let currentQuestion = null;
+let currentPoints = 0;
 
-// Generate game board
-const board = document.getElementById('board');
-Object.keys(questions).forEach(category => {
-    const categoryDiv = document.createElement('div');
-    categoryDiv.classList.add('category');
-    const categoryTitle = document.createElement('h2');
-    categoryTitle.textContent = category;
-    categoryDiv.appendChild(categoryTitle);
+function generateBoard() {
+    const board = document.getElementById("jeopardy-board");
+    board.innerHTML = '';
 
-    [100, 200, 300, 400, 500].forEach(points => {
-        const button = document.createElement('button');
-        button.textContent = `$${points}`;
-        button.onclick = () => showQuestion(category, points);
-        categoryDiv.appendChild(button);
+    Object.keys(categories).forEach(category => {
+        let header = document.createElement("div");
+        header.className = "category";
+        header.innerText = category;
+        board.appendChild(header);
     });
 
-    board.appendChild(categoryDiv);
-});
-
-// Show question modal
-function showQuestion(category, points) {
-    selectedCategory = category;
-    selectedPoints = points;
-    document.getElementById('question-title').textContent = `${category} - $${points}`;
-    document.getElementById('question-text').textContent = questions[category][points][0];
-
-    document.getElementById('question-modal').classList.remove('hidden');
-}
-
-// Show answer modal
-function showAnswer() {
-    const answer = questions[selectedCategory][selectedPoints][1];
-    document.getElementById('answer-text').textContent = `Answer: ${answer}`;
-    document.getElementById('answer-modal').classList.remove('hidden');
-    document.getElementById('question-modal').classList.add('hidden');
-}
-
-// Handle correct or incorrect answer
-function handleAnswer(isCorrect) {
-    const selectedTeam = parseInt(document.getElementById('team-select').value);
-
-    if (isCorrect) {
-        teamScores[selectedTeam] += selectedPoints;
-    } else {
-        teamScores[selectedTeam] -= selectedPoints;
+    for (let points of [100, 200, 300, 400, 500]) {
+        Object.keys(categories).forEach(category => {
+            let button = document.createElement("button");
+            button.className = "question";
+            button.innerText = `$${points}`;
+            button.onclick = () => showQuestion(category, points);
+            board.appendChild(button);
+        });
     }
-
-    updateScores();
-    document.getElementById('answer-modal').classList.add('hidden');
 }
 
-// Update scores
-function updateScores() {
-    document.getElementById('team-1-score').textContent = teamScores[1];
-    document.getElementById('team-2-score').textContent = teamScores[2];
-    document.getElementById('team-3-score').textContent = teamScores[3];
+function showQuestion(category, points) {
+    currentQuestion = category;
+    currentPoints = points;
+    document.getElementById("question-text").innerText = `Question: What is ${category} for $${points}?`;
+    document.getElementById("popup").style.display = "block";
 }
+
+function showAnswer() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("answer-text").innerText = `Answer: ${categories[currentQuestion][currentPoints]}`;
+    document.getElementById("answer-popup").style.display = "block";
+}
+
+function updateScore(correct) {
+    const team = document.getElementById("team-select").value;
+    scores[team] += correct ? currentPoints : -currentPoints;
+    document.getElementById(team).innerText = `${team.replace("team", "Team ")}: $${scores[team]}`;
+    document.getElementById("answer-popup").style.display = "none";
+}
+
+generateBoard();

@@ -101,6 +101,7 @@ function generateBoard() {
             button.innerText = `$${points}`;
             button.setAttribute("data-category", category); // Add data-category attribute for later use
             button.setAttribute("data-points", points); // Add data-points attribute for later use
+            button.setAttribute("id", `button-${category}-${points}`); // Unique ID to identify each button
             button.onclick = showQuestion;
             board.appendChild(button);
         });
@@ -117,8 +118,9 @@ function showQuestion(event) {
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
 
-    // Disable the question button after it is clicked
-    event.target.disabled = true;
+    // Disable the clicked button
+    const questionButton = document.getElementById(`button-${category}-${points}`);
+    questionButton.disabled = true; // Disable the button after it is clicked
 }
 
 function showAnswer() {

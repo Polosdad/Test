@@ -99,15 +99,21 @@ function generateBoard() {
             let button = document.createElement("button");
             button.className = "question";
             button.innerText = `$${points}`;
-            button.onclick = (event) => showQuestion(category, points, event);
+            button.setAttribute("data-category", category); // Add data-category attribute for later use
+            button.setAttribute("data-points", points); // Add data-points attribute for later use
+            button.onclick = showQuestion;
             board.appendChild(button);
         });
     }
 }
 
-function showQuestion(category, points, event) {
+function showQuestion(event) {
+    const category = event.target.getAttribute("data-category");
+    const points = parseInt(event.target.getAttribute("data-points"));
+
     currentQuestion = category;
     currentPoints = points;
+
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
 

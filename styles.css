@@ -1,7 +1,42 @@
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #282c34;
+    color: white;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 20px;
+}
+
+.bg-blue-700 {
+    background-color: #0077cc;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 button {
+    background-color: #ffd700;
+    border: none;
+    padding: 10px;
+    margin-top: 5px;
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#question-modal, #answer-modal {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
 }

@@ -1,59 +1,57 @@
-// Jeopardy questions with five categories and five point values
+// Jeopardy questions with five categories
 const questions = {
     "Science": {
         100: ["What is the chemical symbol for water?", "H2O"],
         200: ["What planet is known as the Red Planet?", "Mars"],
         300: ["What is the powerhouse of the cell?", "Mitochondria"],
-        400: ["What gas do plants absorb from the atmosphere?", "Carbon Dioxide"],
-        500: ["What is the speed of light in a vacuum (m/s)?", "299,792,458"]
+        400: ["What gas do plants absorb?", "Carbon Dioxide"],
+        500: ["What is the speed of light?", "299,792,458 m/s"]
     },
     "History": {
-        100: ["Who was the first president of the United States?", "George Washington"],
-        200: ["In what year did World War II end?", "1945"],
-        300: ["What was the name of the ship that carried the Pilgrims to America?", "Mayflower"],
-        400: ["Who was the main author of the Declaration of Independence?", "Thomas Jefferson"],
-        500: ["What year did the Roman Empire fall?", "476 AD"]
+        100: ["Who was the first U.S. president?", "George Washington"],
+        200: ["In what year did WWII end?", "1945"],
+        300: ["What was the Pilgrims' ship called?", "Mayflower"],
+        400: ["Who wrote the Declaration of Independence?", "Thomas Jefferson"],
+        500: ["When did the Roman Empire fall?", "476 AD"]
     },
     "Geography": {
         100: ["What is the capital of France?", "Paris"],
-        200: ["Which continent is the Sahara Desert located in?", "Africa"],
-        300: ["What is the largest ocean on Earth?", "Pacific Ocean"],
-        400: ["What U.S. state has the most coastline?", "Alaska"],
-        500: ["What is the smallest country in the world?", "Vatican City"]
+        200: ["Which continent has the Sahara Desert?", "Africa"],
+        300: ["Largest ocean?", "Pacific Ocean"],
+        400: ["U.S. state with longest coastline?", "Alaska"],
+        500: ["Smallest country?", "Vatican City"]
     },
     "Math": {
-        100: ["What is 7 + 8?", "15"],
-        200: ["What is the square root of 64?", "8"],
-        300: ["What is 12 x 12?", "144"],
-        400: ["What is the value of Pi (to 3 decimal places)?", "3.142"],
-        500: ["What is the derivative of x²?", "2x"]
+        100: ["7 + 8?", "15"],
+        200: ["Square root of 64?", "8"],
+        300: ["12 x 12?", "144"],
+        400: ["Pi to 3 decimals?", "3.142"],
+        500: ["Derivative of x²?", "2x"]
     },
     "Movies": {
-        100: ["Who directed the movie 'Titanic'?", "James Cameron"],
-        200: ["What is the highest-grossing movie of all time?", "Avatar"],
+        100: ["Who directed 'Titanic'?", "James Cameron"],
+        200: ["Highest-grossing movie?", "Avatar"],
         300: ["Who played Jack in 'Titanic'?", "Leonardo DiCaprio"],
-        400: ["What movie features the line 'I see dead people'?", "The Sixth Sense"],
-        500: ["Which actor has won the most Academy Awards?", "Katharine Hepburn"]
+        400: ["What movie says 'I see dead people'?", "The Sixth Sense"],
+        500: ["Most Oscar wins for an actor?", "Katharine Hepburn"]
     }
 };
 
-// Track scores for three teams
+// Track team scores
 const teamScores = { 1: 0, 2: 0, 3: 0 };
 let selectedCategory, selectedPoints;
 
-// Generate the game board dynamically
+// Generate game board
 const board = document.getElementById('board');
 Object.keys(questions).forEach(category => {
     const categoryDiv = document.createElement('div');
-    categoryDiv.classList.add('bg-blue-700', 'p-4', 'rounded-lg');
+    categoryDiv.classList.add('category');
     const categoryTitle = document.createElement('h2');
-    categoryTitle.classList.add('text-xl', 'font-bold', 'mb-2');
     categoryTitle.textContent = category;
     categoryDiv.appendChild(categoryTitle);
 
     [100, 200, 300, 400, 500].forEach(points => {
         const button = document.createElement('button');
-        button.classList.add('bg-yellow-500', 'p-2', 'rounded', 'text-black', 'font-bold', 'w-full', 'mb-2');
         button.textContent = `$${points}`;
         button.onclick = () => showQuestion(category, points);
         categoryDiv.appendChild(button);
@@ -72,11 +70,10 @@ function showQuestion(category, points) {
     document.getElementById('question-modal').classList.remove('hidden');
 }
 
-// Show the answer modal
+// Show answer modal
 function showAnswer() {
     const answer = questions[selectedCategory][selectedPoints][1];
     document.getElementById('answer-text').textContent = `Answer: ${answer}`;
-
     document.getElementById('answer-modal').classList.remove('hidden');
     document.getElementById('question-modal').classList.add('hidden');
 }
@@ -86,33 +83,18 @@ function handleAnswer(isCorrect) {
     const selectedTeam = parseInt(document.getElementById('team-select').value);
 
     if (isCorrect) {
-        teamScores[selectedTeam] += parseInt(selectedPoints);
+        teamScores[selectedTeam] += selectedPoints;
     } else {
-        teamScores[selectedTeam] -= parseInt(selectedPoints); // Deduct points for incorrect answer
+        teamScores[selectedTeam] -= selectedPoints;
     }
 
     updateScores();
-    closeAnswerModal();
-}
-
-// Close question modal
-function closeModal() {
-    document.getElementById('question-modal').classList.add('hidden');
-}
-
-// Close answer modal
-function closeAnswerModal() {
     document.getElementById('answer-modal').classList.add('hidden');
 }
 
-// Update the score display
+// Update scores
 function updateScores() {
     document.getElementById('team-1-score').textContent = teamScores[1];
     document.getElementById('team-2-score').textContent = teamScores[2];
     document.getElementById('team-3-score').textContent = teamScores[3];
 }
-
-// Ensure the buttons are dynamically assigned
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("team-select").value = "1"; // Default team selection
-});

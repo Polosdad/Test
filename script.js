@@ -38,7 +38,6 @@ const categories = {
 
 let scores = {};
 let currentQuestion = null;
-let currentPoints = 0;
 let currentButton = null;
 
 function setupTeams() {

@@ -5,6 +5,30 @@ body {
     color: white;
 }
 
+h1 {
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.team {
+    background: #0077cc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+input {
+    text-align: center;
+    font-size: 1rem;
+    padding: 5px;
+}
+
 #board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -12,18 +36,20 @@ body {
     margin: 20px;
 }
 
-.bg-blue-700 {
-    background-color: #0077cc;
+.category {
+    background: #004488;
     padding: 10px;
-    border-radius: 10px;
+    color: white;
+    font-size: 1.2rem;
 }
 
 button {
-    background-color: #ffd700;
-    border: none;
+    background: gold;
+    font-size: 1.2rem;
     padding: 10px;
-    margin-top: 5px;
+    margin: 5px;
     cursor: pointer;
+    border: none;
 }
 
 .hidden {
@@ -39,4 +65,5 @@ button {
     color: black;
     padding: 20px;
     border-radius: 10px;
+    width: 300px;
 }

@@ -105,6 +105,8 @@ function startGame() {
     generateBoard();
 }
 
+document.getElementById("start-game-btn").addEventListener("click", startGame);
+
 function generateBoard() {
     const board = document.getElementById("jeopardy-board");
     board.innerHTML = '';

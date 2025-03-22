@@ -10,46 +10,30 @@
 
     <h1>Jeopardy Game</h1>
 
-    <!-- Scoreboard -->
-    <div id="scoreboard">
-        <div class="team">
-            <input type="text" id="team-1-name" value="Team 1">
-            <p>Score: <span id="team-1-score">0</span></p>
-        </div>
-        <div class="team">
-            <input type="text" id="team-2-name" value="Team 2">
-            <p>Score: <span id="team-2-score">0</span></p>
-        </div>
-        <div class="team">
-            <input type="text" id="team-3-name" value="Team 3">
-            <p>Score: <span id="team-3-score">0</span></p>
-        </div>
+    <div class="scores">
+        <div class="team" id="team1">Team 1: $0</div>
+        <div class="team" id="team2">Team 2: $0</div>
     </div>
 
-    <!-- Game Board -->
-    <div id="board"></div>
+    <div class="board" id="jeopardy-board"></div>
 
-    <!-- Question Modal -->
-    <div id="question-modal" class="hidden">
-        <h2 id="question-title"></h2>
-        <p id="question-text"></p>
+    <div class="popup" id="popup">
+        <h2 id="question-text"></h2>
         <button onclick="showAnswer()">Show Answer</button>
     </div>
 
-    <!-- Answer Modal -->
-    <div id="answer-modal" class="hidden">
-        <p id="answer-text"></p>
-        <label for="team-select">Select Team:</label>
+    <div class="popup" id="answer-popup">
+        <h2 id="answer-text"></h2>
+        <label for="team-select">Who answered?</label>
         <select id="team-select">
-            <option value="1">Team 1</option>
-            <option value="2">Team 2</option>
-            <option value="3">Team 3</option>
+            <option value="team1">Team 1</option>
+            <option value="team2">Team 2</option>
         </select>
-        <button onclick="handleAnswer(true)">Correct</button>
-        <button onclick="handleAnswer(false)">Incorrect</button>
+        <button onclick="updateScore(true)">Correct</button>
+        <button onclick="updateScore(false)">Incorrect</button>
     </div>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>

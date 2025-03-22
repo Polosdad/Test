@@ -10,20 +10,17 @@
 
     <h1>Jeopardy Game</h1>
 
-    <div class="scores">
-        <div class="team" id="team1">Team 1: $0</div>
-        <div class="team" id="team2">Team 2: $0</div>
-    </div>
-
-    <div class="board" id="jeopardy-board"></div>
-
-    <!-- Setup Popup for teams -->
-    <div id="setup-popup" style="display: none;">
-        <h2>Enter Team Information</h2>
+    <div id="setup-container">
+        <h2>Setup Teams</h2>
         <label for="num-teams">Number of Teams:</label>
         <input type="number" id="num-teams" min="2" max="4" required>
         <div id="team-inputs"></div>
-        <button onclick="setupTeams()">Setup Teams</button>
+        <button onclick="setupTeams()">Confirm Teams</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div class="scores" id="score-board"></div>
+        <div class="board" id="jeopardy-board"></div>
     </div>
 
     <!-- Question Popup -->
@@ -36,15 +33,10 @@
     <div class="popup" id="answer-popup">
         <h2 id="answer-text"></h2>
         <label for="team-select">Who answered?</label>
-        <select id="team-select">
-            <option value="team1">Team 1</option>
-            <option value="team2">Team 2</option>
-        </select>
+        <select id="team-select"></select>
         <button onclick="updateScore(true)">Correct</button>
         <button onclick="updateScore(false)">Incorrect</button>
     </div>
-
-    <button id="start-game-button" onclick="showSetupPopup()">Start Game</button>
 
     <script src="script.js"></script>
 </body>

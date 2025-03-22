@@ -68,33 +68,8 @@ function setupTeams() {
     generateBoard();
 }
 
-function generateBoard() {
-    const board = document.getElementById("jeopardy-board");
-    board.innerHTML = "";
-
-    for (let category in categories) {
-        let header = document.createElement("div");
-        header.className = "category";
-        header.innerText = category;
-        board.appendChild(header);
-    }
-
-    for (let points of [100, 200, 300, 400, 500]) {
-        for (let category in categories) {
-            let button = document.createElement("button");
-            button.className = "question";
-            button.innerText = `$${points}`;
-            button.onclick = () => showQuestion(category, points, button);
-            board.appendChild(button);
-        }
-    }
-}
-
-function showQuestion(category, points, button) {
-    currentQuestion = categories[category][points];
-    currentPoints = points;
-    currentButton = button;
-
-    document.getElementById("question-text").innerText = currentQuestion.q;
-    document.getElementById("popup").style.display = "block";
+function showAnswer() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("answer-text").innerText = `Answer: ${currentQuestion.a}`;
+    document.getElementById("answer-popup").style.display = "block";
 }

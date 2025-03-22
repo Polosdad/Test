@@ -113,7 +113,6 @@ function showQuestion(category, points) {
 }
 
 function showAnswer() {
-    document.getElementById("popup").style.display = "none";
     document.getElementById("answer-text").innerText = categories[currentQuestion][currentPoints][1];
     document.getElementById("answer-popup").style.display = "block";
 }

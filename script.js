@@ -61,6 +61,8 @@ function updateTeamNames() {
     }
 }
 
+document.getElementById("num-teams").addEventListener("change", updateTeamNames);
+
 function startGame() {
     // Get team names from the input fields
     for (let i = 1; i <= numTeams; i++) {

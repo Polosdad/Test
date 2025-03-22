@@ -39,6 +39,7 @@ const categories = {
 let scores = {};
 let currentQuestion = null;
 let currentPoints = 0;
+let currentButton = null;
 
 function setupTeams() {
     const numTeams = parseInt(document.getElementById("num-teams").value);
@@ -71,20 +72,29 @@ function generateBoard() {
     const board = document.getElementById("jeopardy-board");
     board.innerHTML = "";
 
-    Object.keys(categories).forEach(category => {
+    for (let category in categories) {
         let header = document.createElement("div");
         header.className = "category";
         header.innerText = category;
         board.appendChild(header);
-    });
+    }
 
     for (let points of [100, 200, 300, 400, 500]) {
-        Object.keys(categories).forEach(category => {
+        for (let category in categories) {
             let button = document.createElement("button");
             button.className = "question";
             button.innerText = `$${points}`;
             button.onclick = () => showQuestion(category, points, button);
             board.appendChild(button);
-        });
+        }
     }
+}
+
+function showQuestion(category, points, button) {
+    currentQuestion = categories[category][points];
+    currentPoints = points;
+    currentButton = button;
+
+    document.getElementById("question-text").innerText = currentQuestion.q;
+    document.getElementById("popup").style.display = "block";
 }

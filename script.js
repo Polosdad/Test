@@ -1,9 +1,39 @@
 const categories = {
-    "Science": { 100: "H2O", 200: "Mars", 300: "Mitochondria", 400: "Gravity", 500: "Einstein" },
-    "History": { 100: "George Washington", 200: "1945", 300: "Mayflower", 400: "Boston Tea Party", 500: "Napoleon" },
-    "Geography": { 100: "Mount Everest", 200: "Nile River", 300: "Amazon Rainforest", 400: "Sahara Desert", 500: "Pacific Ocean" },
-    "Math": { 100: "Pi", 200: "Pythagorean theorem", 300: "Infinity", 400: "Prime numbers", 500: "Euler" },
-    "Literature": { 100: "Shakespeare", 200: "Homer", 300: "Gatsby", 400: "Moby Dick", 500: "Odyssey" }
+    "Science": {
+        100: { question: "What is the chemical formula for water?", answer: "H2O" },
+        200: { question: "What planet is known as the Red Planet?", answer: "Mars" },
+        300: { question: "What organelle is known as the powerhouse of the cell?", answer: "Mitochondria" },
+        400: { question: "What force keeps us grounded on Earth?", answer: "Gravity" },
+        500: { question: "Who developed the theory of relativity?", answer: "Einstein" }
+    },
+    "History": {
+        100: { question: "Who was the first president of the United States?", answer: "George Washington" },
+        200: { question: "In what year did World War II end?", answer: "1945" },
+        300: { question: "What ship brought the Pilgrims to America in 1620?", answer: "Mayflower" },
+        400: { question: "Which event took place in 1773 involving tea?", answer: "Boston Tea Party" },
+        500: { question: "Who was the French leader during the Napoleonic Wars?", answer: "Napoleon" }
+    },
+    "Geography": {
+        100: { question: "What is the highest mountain in the world?", answer: "Mount Everest" },
+        200: { question: "Which river is the longest in the world?", answer: "Nile River" },
+        300: { question: "What is the largest rainforest on Earth?", answer: "Amazon Rainforest" },
+        400: { question: "Which desert is the largest hot desert in the world?", answer: "Sahara Desert" },
+        500: { question: "Which ocean is the largest on Earth?", answer: "Pacific Ocean" }
+    },
+    "Math": {
+        100: { question: "What is the mathematical constant approximately equal to 3.14159?", answer: "Pi" },
+        200: { question: "Which theorem relates the sides of a right triangle?", answer: "Pythagorean theorem" },
+        300: { question: "What concept describes a number that continues indefinitely without repeating?", answer: "Infinity" },
+        400: { question: "What are numbers greater than 1 that can only be divided by 1 and themselves?", answer: "Prime numbers" },
+        500: { question: "Who is known for the equation e^(iπ) + 1 = 0?", answer: "Euler" }
+    },
+    "Literature": {
+        100: { question: "Who wrote 'Romeo and Juliet'?", answer: "Shakespeare" },
+        200: { question: "Who wrote 'The Iliad'?", answer: "Homer" },
+        300: { question: "Which novel features the character Jay Gatsby?", answer: "The Great Gatsby" },
+        400: { question: "Which novel features a whale named Moby Dick?", answer: "Moby Dick" },
+        500: { question: "Which epic poem tells the story of Odysseus' journey home?", answer: "The Odyssey" }
+    }
 };
 
 const scores = { team1: 0, team2: 0 };
@@ -35,14 +65,14 @@ function generateBoard() {
 function showQuestion(category, points) {
     currentQuestion = category;
     currentPoints = points;
-    // Use the category and points to fetch the actual question from the categories object
-    document.getElementById("question-text").innerText = `Question: What is ${categories[category][points]}?`;
+    // Display the actual question from the categories object
+    document.getElementById("question-text").innerText = `Question: ${categories[category][points].question}`;
     document.getElementById("popup").style.display = "block";
 }
 
 function showAnswer() {
     document.getElementById("popup").style.display = "none";
-    document.getElementById("answer-text").innerText = `Answer: ${categories[currentQuestion][currentPoints]}`;
+    document.getElementById("answer-text").innerText = `Answer: ${categories[currentQuestion][currentPoints].answer}`;
     document.getElementById("answer-popup").style.display = "block";
 }
 

@@ -99,17 +99,20 @@ function generateBoard() {
             let button = document.createElement("button");
             button.className = "question";
             button.innerText = `$${points}`;
-            button.onclick = () => showQuestion(category, points);
+            button.onclick = (event) => showQuestion(category, points, event);
             board.appendChild(button);
         });
     }
 }
 
-function showQuestion(category, points) {
+function showQuestion(category, points, event) {
     currentQuestion = category;
     currentPoints = points;
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
+
+    // Disable the question button after it is clicked
+    event.target.disabled = true;
 }
 
 function showAnswer() {
@@ -122,8 +125,4 @@ function updateScore(correct) {
     teams[team] += correct ? currentPoints : -currentPoints;
     document.getElementById(`team-${team}`).innerText = `${team}: $${teams[team]}`;
     document.getElementById("answer-popup").style.display = "none";
-
-    // Disable the selected question button after answering
-    const questionButton = document.querySelector(`button:contains('$${currentPoints}')`);
-    questionButton.disabled = true;
 }

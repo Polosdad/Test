@@ -9,12 +9,21 @@
 <body>
 
     <h1>Jeopardy Game</h1>
-    
+
     <!-- Scoreboard -->
     <div id="scoreboard">
-        <p>Team 1: <span id="team-1-score">0</span></p>
-        <p>Team 2: <span id="team-2-score">0</span></p>
-        <p>Team 3: <span id="team-3-score">0</span></p>
+        <div class="team">
+            <input type="text" id="team-1-name" value="Team 1">
+            <p>Score: <span id="team-1-score">0</span></p>
+        </div>
+        <div class="team">
+            <input type="text" id="team-2-name" value="Team 2">
+            <p>Score: <span id="team-2-score">0</span></p>
+        </div>
+        <div class="team">
+            <input type="text" id="team-3-name" value="Team 3">
+            <p>Score: <span id="team-3-score">0</span></p>
+        </div>
     </div>
 
     <!-- Game Board -->
@@ -25,7 +34,6 @@
         <h2 id="question-title"></h2>
         <p id="question-text"></p>
         <button onclick="showAnswer()">Show Answer</button>
-        <button onclick="closeModal()">Close</button>
     </div>
 
     <!-- Answer Modal -->
@@ -39,7 +47,6 @@
         </select>
         <button onclick="handleAnswer(true)">Correct</button>
         <button onclick="handleAnswer(false)">Incorrect</button>
-        <button onclick="closeAnswerModal()">Close</button>
     </div>
 
     <script src="app.js"></script>

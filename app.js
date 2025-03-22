@@ -73,12 +73,13 @@ function showAnswer() {
 
 // Handle correct or incorrect answer
 function handleAnswer(isCorrect) {
+    const selectedTeam = parseInt(document.getElementById('team-select').value);
+
     if (isCorrect) {
-        const selectedTeam = document.getElementById('team-select').value;
         teamScores[selectedTeam] += parseInt(selectedPoints);
-        updateScores();
     }
 
+    updateScores();
     closeAnswerModal();
 }
 
@@ -98,3 +99,8 @@ function updateScores() {
     document.getElementById('team-2-score').textContent = teamScores[2];
     document.getElementById('team-3-score').textContent = teamScores[3];
 }
+
+// Ensure the buttons are dynamically assigned
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("team-select").value = "1"; // Default team selection
+});

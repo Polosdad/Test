@@ -1,121 +1,123 @@
 const categories = {
-  "Science": {
-    100: { q: "What is the chemical formula for water?", a: "H2O" },
-    200: { q: "What planet is known as the Red Planet?", a: "Mars" },
-    300: { q: "What organelle is the powerhouse of the cell?", a: "Mitochondria" },
-    400: { q: "What force keeps us on the ground?", a: "Gravity" },
-    500: { q: "Who developed the theory of relativity?", a: "Einstein" }
-  },
-  "History": {
-    100: { q: "Who was the first President of the United States?", a: "George Washington" },
-    200: { q: "In what year did World War II end?", a: "1945" },
-    300: { q: "What ship carried the Pilgrims to America?", a: "The Mayflower" },
-    400: { q: "What event involved tea being thrown into a harbor?", a: "Boston Tea Party" },
-    500: { q: "Who was the French military leader exiled to Elba?", a: "Napoleon" }
-  },
-  "Geography": {
-    100: { q: "What is the tallest mountain in the world?", a: "Mount Everest" },
-    200: { q: "What is the longest river in the world?", a: "Nile River" },
-    300: { q: "Which rainforest is the largest on Earth?", a: "Amazon Rainforest" },
-    400: { q: "What desert is the largest in the world?", a: "Sahara Desert" },
-    500: { q: "Which ocean is the deepest?", a: "Pacific Ocean" }
-  },
-  "Math": {
-    100: { q: "What is 3.14 commonly known as?", a: "Pi" },
-    200: { q: "What theorem relates the sides of a right triangle?", a: "Pythagorean theorem" },
-    300: { q: "What is the concept of a never-ending number called?", a: "Infinity" },
-    400: { q: "What type of numbers are only divisible by 1 and themselves?", a: "Prime numbers" },
-    500: { q: "Who introduced the number e?", a: "Euler" }
-  },
-  "Literature": {
-    100: { q: "Who wrote 'Hamlet'?", a: "Shakespeare" },
-    200: { q: "Who wrote 'The Odyssey'?", a: "Homer" },
-    300: { q: "Who is the main character in 'The Great Gatsby'?", a: "Gatsby" },
-    400: { q: "What novel features Captain Ahab hunting a whale?", a: "Moby Dick" },
-    500: { q: "Which epic poem tells the story of a Trojan War hero?", a: "The Odyssey" }
-  }
+    "Criminal Law": {
+        100: ["What is the legal term for stealing?", "Larceny"],
+        200: ["What is the Miranda warning meant to protect?", "The right to remain silent"],
+        300: ["What is the maximum sentence for a misdemeanor?", "One year in jail"],
+        400: ["What is double jeopardy?", "Being tried twice for the same crime"],
+        500: ["What does 'mens rea' refer to?", "A guilty mind"]
+    },
+    "Constitutional Law": {
+        100: ["What is the First Amendment about?", "Freedom of speech, religion, and press"],
+        200: ["Which amendment abolished slavery?", "13th Amendment"],
+        300: ["What is judicial review?", "The Supreme Court's power to declare laws unconstitutional"],
+        400: ["What does 'due process' ensure?", "Fair legal procedures"],
+        500: ["What is the highest law of the land?", "The U.S. Constitution"]
+    },
+    "Torts": {
+        100: ["What is defamation?", "A false statement harming someone's reputation"],
+        200: ["What is negligence?", "Failure to exercise reasonable care"],
+        300: ["What does 'strict liability' mean?", "Liability without fault"],
+        400: ["What is an intentional tort?", "A wrongful act done on purpose"],
+        500: ["What is medical malpractice?", "Negligence by a medical professional"]
+    },
+    "Contracts": {
+        100: ["What is a legally binding agreement called?", "A contract"],
+        200: ["What is 'breach of contract'?", "Failure to fulfill contractual obligations"],
+        300: ["What are the essential elements of a contract?", "Offer, acceptance, consideration"],
+        400: ["What is 'consideration' in a contract?", "Something of value exchanged"],
+        500: ["What is an 'unenforceable contract'?", "A contract that cannot be legally upheld"]
+    },
+    "Property Law": {
+        100: ["What is real property?", "Land and anything permanently attached to it"],
+        200: ["What is eminent domain?", "Government's power to take private property"],
+        300: ["What is adverse possession?", "Gaining property rights by occupying land openly"],
+        400: ["What is a deed?", "A document transferring property ownership"],
+        500: ["What is a zoning law?", "A law regulating land use"]
+    }
 };
 
-let scores = {};
+let teams = {};
 let currentQuestion = null;
-let currentButton = null;
+let currentPoints = 0;
 
-function setupTeams() {
-  const numTeams = parseInt(document.getElementById("num-teams").value);
-  document.getElementById("score-board").innerHTML = "";
-  document.getElementById("team-select").innerHTML = "";
-  scores = {};
+function addTeam() {
+    const teamInputs = document.getElementById("team-inputs");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Team Name";
+    teamInputs.appendChild(input);
+}
 
-  for (let i = 1; i <= numTeams; i++) {
-    const teamName = prompt(`Enter name for Team ${i}:`);
-    scores[`team${i}`] = 0;
+function startGame() {
+    const teamInputs = document.querySelectorAll("#team-inputs input");
+    if (teamInputs.length === 0) return;
 
-    let scoreDiv = document.createElement("div");
-    scoreDiv.className = "team";
-    scoreDiv.id = `team${i}`;
-    scoreDiv.innerText = `${teamName}: $0`;
-    document.getElementById("score-board").appendChild(scoreDiv);
+    teams = {};
+    const teamSelect = document.getElementById("team-select");
+    teamSelect.innerHTML = "";
+    document.getElementById("scores").innerHTML = "";
 
-    let option = document.createElement("option");
-    option.value = `team${i}`;
-    option.innerText = teamName;
-    document.getElementById("team-select").appendChild(option);
-  }
+    teamInputs.forEach(input => {
+        if (input.value.trim() !== "") {
+            const name = input.value.trim();
+            teams[name] = 0;
 
-  document.getElementById("setup-container").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
-  generateBoard();
+            const scoreDiv = document.createElement("div");
+            scoreDiv.className = "team";
+            scoreDiv.id = `team-${name}`;
+            scoreDiv.innerText = `${name}: $0`;
+            document.getElementById("scores").appendChild(scoreDiv);
+
+            const option = document.createElement("option");
+            option.value = name;
+            option.innerText = name;
+            teamSelect.appendChild(option);
+        }
+    });
+
+    document.getElementById("setup").style.display = "none";
+    document.getElementById("game").style.display = "block";
+    generateBoard();
 }
 
 function generateBoard() {
-  const board = document.getElementById("jeopardy-board");
-  board.innerHTML = "";
+    const board = document.getElementById("jeopardy-board");
+    board.innerHTML = '';
 
-  // Create category headers
-  for (let category in categories) {
-    let header = document.createElement("div");
-    header.className = "category";
-    header.innerText = category;
-    board.appendChild(header);
-  }
+    Object.keys(categories).forEach(category => {
+        let header = document.createElement("div");
+        header.className = "category";
+        header.innerText = category;
+        board.appendChild(header);
+    });
 
-  // Create question buttons for each point value in each category
-  for (let points of [100, 200, 300, 400, 500]) {
-    for (let category in categories) {
-      let button = document.createElement("button");
-      button.className = "question";
-      button.innerText = `$${points}`;
-      button.onclick = () => showQuestion(category, points, button);
-      board.appendChild(button);
+    for (let points of [100, 200, 300, 400, 500]) {
+        Object.keys(categories).forEach(category => {
+            let button = document.createElement("button");
+            button.className = "question";
+            button.innerText = `$${points}`;
+            button.onclick = () => showQuestion(category, points);
+            board.appendChild(button);
+        });
     }
-  }
 }
 
-function showQuestion(category, points, button) {
-  currentQuestion = categories[category][points];
-  currentButton = button;
-  document.getElementById("question-text").innerText = currentQuestion.q;
-  document.getElementById("popup").style.display = "block";
+function showQuestion(category, points) {
+    currentQuestion = category;
+    currentPoints = points;
+    document.getElementById("question-text").innerText = categories[category][points][0];
+    document.getElementById("popup").style.display = "block";
 }
 
 function showAnswer() {
-  if (!currentQuestion) return;
-  document.getElementById("popup").style.display = "none";
-  document.getElementById("answer-text").innerText = `Answer: ${currentQuestion.a}`;
-  document.getElementById("answer-popup").style.display = "block";
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("answer-text").innerText = categories[currentQuestion][currentPoints][1];
+    document.getElementById("answer-popup").style.display = "block";
 }
 
 function updateScore(correct) {
-  const team = document.getElementById("team-select").value;
-  // Use the point value from the button text (e.g. "$100")
-  const points = parseInt(currentButton.innerText.replace('$', ''));
-  scores[team] += correct ? points : -points;
-  // Update score display (using the team div's existing text split by ":")
-  let teamDiv = document.getElementById(team);
-  let teamName = teamDiv.innerText.split(':')[0];
-  teamDiv.innerText = `${teamName}: $${scores[team]}`;
-  currentButton.disabled = true;
-  document.getElementById("answer-popup").style.display = "none";
-  currentQuestion = null;
-  currentButton = null;
+    const team = document.getElementById("team-select").value;
+    teams[team] += correct ? currentPoints : -currentPoints;
+    document.getElementById(`team-${team}`).innerText = `${team}: $${teams[team]}`;
+    document.getElementById("answer-popup").style.display = "none";
 }

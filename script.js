@@ -35,7 +35,8 @@ function generateBoard() {
 function showQuestion(category, points) {
     currentQuestion = category;
     currentPoints = points;
-    document.getElementById("question-text").innerText = `Question: What is ${category} for $${points}?`;
+    // Use the category and points to fetch the actual question from the categories object
+    document.getElementById("question-text").innerText = `Question: What is ${categories[category][points]}?`;
     document.getElementById("popup").style.display = "block";
 }
 

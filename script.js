@@ -37,6 +37,8 @@ const categories = {
 };
 
 let teams = {};
+let currentQuestion = null;
+let currentPoints = 0;
 
 document.getElementById("add-team").addEventListener("click", addTeam);
 document.getElementById("start-game").addEventListener("click", startGame);
@@ -104,6 +106,8 @@ function generateBoard() {
 }
 
 function showQuestion(category, points) {
+    currentQuestion = category;
+    currentPoints = points;
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
 }
@@ -112,4 +116,15 @@ function showAnswer() {
     document.getElementById("popup").style.display = "none";
     document.getElementById("answer-text").innerText = categories[currentQuestion][currentPoints][1];
     document.getElementById("answer-popup").style.display = "block";
+}
+
+function updateScore(correct) {
+    const team = document.getElementById("team-select").value;
+    teams[team] += correct ? currentPoints : -currentPoints;
+    document.getElementById(`team-${team}`).innerText = `${team}: $${teams[team]}`;
+    document.getElementById("answer-popup").style.display = "none";
+
+    // Disable the selected question button after answering
+    const questionButton = document.querySelector(`button:contains('$${currentPoints}')`);
+    questionButton.disabled = true;
 }

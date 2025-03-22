@@ -5,6 +5,18 @@ body {
     text-align: center;
 }
 
+#team-setup {
+    margin: 20px;
+}
+
+#team-setup input {
+    margin: 5px;
+}
+
+#game-section {
+    display: none;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

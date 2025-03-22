@@ -10,39 +10,42 @@
 
     <h1>Jeopardy Game</h1>
 
-    <!-- Team Setup Section -->
-    <div id="team-setup">
-        <h2>Set Up Teams</h2>
-        <label for="num-teams">Number of teams:</label>
-        <select id="num-teams">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+    <div class="scores">
+        <div class="team" id="team1">Team 1: $0</div>
+        <div class="team" id="team2">Team 2: $0</div>
+    </div>
+
+    <div class="board" id="jeopardy-board"></div>
+
+    <!-- Setup Popup for teams -->
+    <div id="setup-popup" style="display: none;">
+        <h2>Enter Team Information</h2>
+        <label for="num-teams">Number of Teams:</label>
+        <input type="number" id="num-teams" min="2" max="4" required>
+        <div id="team-inputs"></div>
+        <button onclick="setupTeams()">Setup Teams</button>
+    </div>
+
+    <!-- Question Popup -->
+    <div class="popup" id="popup">
+        <h2 id="question-text"></h2>
+        <button onclick="showAnswer()">Show Answer</button>
+    </div>
+
+    <!-- Answer Popup -->
+    <div class="popup" id="answer-popup">
+        <h2 id="answer-text"></h2>
+        <label for="team-select">Who answered?</label>
+        <select id="team-select">
+            <option value="team1">Team 1</option>
+            <option value="team2">Team 2</option>
         </select>
-        <div id="team-names"></div>
-        <button id="start-game-btn">Start Game</button>
+        <button onclick="updateScore(true)">Correct</button>
+        <button onclick="updateScore(false)">Incorrect</button>
     </div>
 
-    <!-- Game Section (hidden initially) -->
-    <div id="game-section" style="display: none;">
-        <div class="scores" id="scores"></div>
-        <div class="board" id="jeopardy-board"></div>
-
-        <div class="popup" id="popup">
-            <h2 id="question-text"></h2>
-            <button onclick="showAnswer()">Show Answer</button>
-        </div>
-
-        <div class="popup" id="answer-popup">
-            <h2 id="answer-text"></h2>
-            <label for="team-select">Who answered?</label>
-            <select id="team-select"></select>
-            <button onclick="updateScore(true)">Correct</button>
-            <button onclick="updateScore(false)">Incorrect</button>
-        </div>
-    </div>
+    <button id="start-game-button" onclick="showSetupPopup()">Start Game</button>
 
     <script src="script.js"></script>
-
 </body>
 </html>

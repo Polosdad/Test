@@ -39,6 +39,7 @@ const categories = {
 let teams = {};
 let currentQuestion = null;
 let currentPoints = 0;
+let currentButton = null; // Store reference to the button clicked
 
 document.getElementById("add-team").addEventListener("click", addTeam);
 document.getElementById("start-game").addEventListener("click", startGame);
@@ -99,9 +100,9 @@ function generateBoard() {
             let button = document.createElement("button");
             button.className = "question";
             button.innerText = `$${points}`;
-            button.setAttribute("data-category", category); // Add data-category attribute for later use
-            button.setAttribute("data-points", points); // Add data-points attribute for later use
-            button.setAttribute("id", `button-${category}-${points}`); // Unique ID to identify each button
+            button.setAttribute("data-category", category);
+            button.setAttribute("data-points", points);
+            button.setAttribute("id", `button-${category}-${points}`);
             button.onclick = showQuestion;
             board.appendChild(button);
         });
@@ -114,16 +115,17 @@ function showQuestion(event) {
 
     currentQuestion = category;
     currentPoints = points;
+    currentButton = event.target; // Store reference to the clicked button
 
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
 
-    // Disable the clicked button
-    const questionButton = document.getElementById(`button-${category}-${points}`);
-    questionButton.disabled = true; // Disable the button after it is clicked
+    // Disable the clicked button so it cannot be selected again
+    currentButton.disabled = true;
 }
 
 function showAnswer() {
+    document.getElementById("popup").style.display = "none";
     document.getElementById("answer-text").innerText = categories[currentQuestion][currentPoints][1];
     document.getElementById("answer-popup").style.display = "block";
 }
@@ -132,5 +134,7 @@ function updateScore(correct) {
     const team = document.getElementById("team-select").value;
     teams[team] += correct ? currentPoints : -currentPoints;
     document.getElementById(`team-${team}`).innerText = `${team}: $${teams[team]}`;
+
+    // Close the answer pop-up after scoring
     document.getElementById("answer-popup").style.display = "none";
 }

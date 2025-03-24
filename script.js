@@ -39,7 +39,7 @@ const categories = {
 let teams = {};
 let currentQuestion = null;
 let currentPoints = 0;
-let currentButton = null; // Store reference to the button clicked
+let currentButton = null; // Stores the clicked button
 
 document.getElementById("add-team").addEventListener("click", addTeam);
 document.getElementById("start-game").addEventListener("click", startGame);
@@ -102,7 +102,6 @@ function generateBoard() {
             button.innerText = `$${points}`;
             button.setAttribute("data-category", category);
             button.setAttribute("data-points", points);
-            button.setAttribute("id", `button-${category}-${points}`);
             button.onclick = showQuestion;
             board.appendChild(button);
         });
@@ -110,18 +109,15 @@ function generateBoard() {
 }
 
 function showQuestion(event) {
-    const category = event.target.getAttribute("data-category");
-    const points = parseInt(event.target.getAttribute("data-points"));
+    currentButton = event.target; // Store the button clicked
+    const category = currentButton.getAttribute("data-category");
+    const points = parseInt(currentButton.getAttribute("data-points"));
 
     currentQuestion = category;
     currentPoints = points;
-    currentButton = event.target; // Store reference to the clicked button
 
     document.getElementById("question-text").innerText = categories[category][points][0];
     document.getElementById("popup").style.display = "block";
-
-    // Disable the clicked button so it cannot be selected again
-    currentButton.disabled = true;
 }
 
 function showAnswer() {
@@ -137,4 +133,11 @@ function updateScore(correct) {
 
     // Close the answer pop-up after scoring
     document.getElementById("answer-popup").style.display = "none";
+
+    // Disable the button permanently after the question has been answered
+    if (currentButton) {
+        currentButton.disabled = true;
+        currentButton.style.backgroundColor = "#222"; // Change to a "used" style
+        currentButton.style.cursor = "not-allowed";
+    }
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Swiss+911&family=Korinna&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
     font-family: 'Korinna', Arial, sans-serif;
@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-    font-family: 'Swiss 911', sans-serif;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 2.5em;
     margin-bottom: 20px;
 }
@@ -50,11 +50,16 @@ h1 {
     font-weight: bold;
     border: 2px solid white;
     cursor: pointer;
+    color: white; /* Make the text color white */
 }
 
 .question:disabled {
     background-color: #222;
     cursor: not-allowed;
+}
+
+.question {
+    color: white; /* Ensures the question text is white */
 }
 
 .popup {
@@ -74,4 +79,20 @@ h1 {
     padding: 10px;
     font-size: 1em;
     cursor: pointer;
+}
+
+#answer-popup {
+    font-family: 'Press Start 2P', sans-serif;
+}
+
+#question-text {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 1.5em;
+    color: #0000CC;
+}
+
+#answer-text {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 1.5em;
+    color: #0000CC;
 }

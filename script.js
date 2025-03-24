@@ -1,38 +1,38 @@
 const categories = {
-    "Criminal Law": {
-        100: ["What is the legal term for stealing?", "Larceny"],
-        200: ["What is the Miranda warning meant to protect?", "The right to remain silent"],
-        300: ["What is the maximum sentence for a misdemeanor?", "One year in jail"],
-        400: ["What is double jeopardy?", "Being tried twice for the same crime"],
-        500: ["What does 'mens rea' refer to?", "A guilty mind"]
+    "Ethical Principles": {
+        100: ["Acting with honesty and truthfulness in all business dealings.", "Integrity"],
+        200: ["The duty to keep sensitive information private.", "Confidentiality"],
+        300: ["Acting in the best interest of clients, customers, or stakeholders.", "Fiduciary duty"],
+        400: ["A situation where personal interests could interfere with professional responsibilities.", "Conflict of interest"],
+        500: ["The principle that requires professionals to acknowledge and correct their mistakes.", "Accountability"]
     },
-    "Constitutional Law": {
-        100: ["What is the First Amendment about?", "Freedom of speech, religion, and press"],
-        200: ["Which amendment abolished slavery?", "13th Amendment"],
-        300: ["What is judicial review?", "The Supreme Court's power to declare laws unconstitutional"],
-        400: ["What does 'due process' ensure?", "Fair legal procedures"],
-        500: ["What is the highest law of the land?", "The U.S. Constitution"]
+    "Workplace Conduct": {
+        100: ["Treating colleagues with fairness, dignity, and respect.", "Professionalism"],
+        200: ["Unwelcome behavior that creates a hostile or uncomfortable work environment.", "Harassment"],
+        300: ["Reporting unethical behavior or policy violations.", "Whistleblowing"],
+        400: ["Avoiding favoritism and personal bias in decision-making.", "Impartiality"],
+        500: ["Using company resources for personal gain without authorization.", "Misappropriation"]
     },
-    "Torts": {
-        100: ["What is defamation?", "A false statement harming someone's reputation"],
-        200: ["What is negligence?", "Failure to exercise reasonable care"],
-        300: ["What does 'strict liability' mean?", "Liability without fault"],
-        400: ["What is an intentional tort?", "A wrongful act done on purpose"],
-        500: ["What is medical malpractice?", "Negligence by a medical professional"]
+    "Legal & Compliance": {
+        100: ["Falsifying documents or financial records for personal or business gain.", "Fraud"],
+        200: ["Laws that protect employees from discrimination based on race, gender, or religion.", "Equal Employment Opportunity (EEO) laws"],
+        300: ["Offering or accepting something of value to influence a business decision.", "Bribery"],
+        400: ["The requirement to disclose any conflicts of interest in professional dealings.", "Transparency"],
+        500: ["A set of company policies that outline acceptable workplace behavior and expectations.", "Code of Conduct"]
     },
-    "Contracts": {
-        100: ["What is a legally binding agreement called?", "A contract"],
-        200: ["What is 'breach of contract'?", "Failure to fulfill contractual obligations"],
-        300: ["What are the essential elements of a contract?", "Offer, acceptance, consideration"],
-        400: ["What is 'consideration' in a contract?", "Something of value exchanged"],
-        500: ["What is an 'unenforceable contract'?", "A contract that cannot be legally upheld"]
+    "Professional Responsibilities": {
+        100: ["The expectation that professionals will continue to develop their skills and knowledge.", "Continuous learning"],
+        200: ["The obligation to report misconduct, even if it may have personal consequences.", "Duty to report"],
+        300: ["Avoiding giving or receiving these to prevent conflicts of interest.", "Gifts and favors"],
+        400: ["Following lawful instructions from supervisors unless they violate ethical standards.", "Ethical obedience"],
+        500: ["The responsibility of a leader to set a strong ethical example.", "Ethical leadership"]
     },
-    "Property Law": {
-        100: ["What is real property?", "Land and anything permanently attached to it"],
-        200: ["What is eminent domain?", "Government's power to take private property"],
-        300: ["What is adverse possession?", "Gaining property rights by occupying land openly"],
-        400: ["What is a deed?", "A document transferring property ownership"],
-        500: ["What is a zoning law?", "A law regulating land use"]
+    "Digital & Online Conduct": {
+        100: ["Using company technology for personal, illegal, or inappropriate purposes.", "Misuse of company resources"],
+        200: ["The duty to protect sensitive client or company data.", "Data privacy"],
+        300: ["Unauthorized sharing or leaking of confidential company information.", "Information breach"],
+        400: ["Posting false or damaging statements about a company or colleague online.", "Defamation"],
+        500: ["The principle that encourages professionals to think carefully before posting online.", "Responsible online conduct"]
     }
 };
 
